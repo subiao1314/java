@@ -1,4 +1,4 @@
-package com.ddb.javaweb.filter;
+package com.sub.javaweb;
 
 import java.io.IOException;
 import javax.servlet.DispatcherType;
@@ -10,10 +10,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
-import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet Filter implementation class EncodingFilter
+ * Servlet Filter implementation class EncodingDemo
  */
 @WebFilter(
 		dispatcherTypes = {
@@ -23,22 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 				DispatcherType.ERROR
 		}
 					, 
-		description = "Login使用UTF-8的字符编码方式", 
-		urlPatterns = { 
-				"/EncodingFilter", 
-				"/servlet/Login"
-		}, 
+		urlPatterns = { "/LoginReceive" }, 
 		initParams = { 
-				@WebInitParam(name = "charset", value = "UTF-8", description = "是指其参数为UTF-8编码方式")
-	  
-		}
-	   )
-public class EncodingFilter implements Filter {
-         private String charset; //创建私有变量
+				@WebInitParam(name = "charset", value = "UTF-8", description = "改变字符集编码方式为UTF-8")
+		})
+public class EncodingDemo implements Filter {
+
     /**
      * Default constructor. 
      */
-    public EncodingFilter() {
+    public EncodingDemo() {
         // TODO Auto-generated constructor stub
     }
 
@@ -46,7 +39,7 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		System.out.println("EncodingFilter  销毁中...");
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -55,30 +48,16 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
+
 		// pass the request along the filter chain
-   
-		System.out.println("EncodingFilter  运行前...");
-		 request.setCharacterEncoding(this.charset);
-	 	chain.doFilter(request, response);
-	 	System.out.println("EncodingFilter  运行后...");
-		
-	 	//
-	 	((HttpServletResponse) response).setDateHeader("Expires",-1);
-		 HttpServletResponse response2=(HttpServletResponse)response;
-		response2.setHeader("Cache-Control","no-cache"); 
-		response2.setHeader("Pragma","no-cache") ;
-	 	
-	 	
+		chain.doFilter(request, response);
 	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-	     charset=fConfig.getInitParameter("charset");
-		System.out.println("EncodingFilter  初始化... 参数为："+charset);
-	
-	
+		// TODO Auto-generated method stub
 	}
 
 }
